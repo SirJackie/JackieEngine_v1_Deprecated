@@ -163,45 +163,51 @@ void FRasterizer::DrawRadiusCube(i32 x, i32 y, i32 radius){
 
 void FRasterizer::DrawTriangle(const FVectorTex& v0_, const FVectorTex& v1_, const FVectorTex& v2_, CS_FrameBuffer& texture){
 	// Sort Y Order
-	FVectorTex *v0 = (FVectorTex*)&v0_;
-	FVectorTex *v1 = (FVectorTex*)&v1_;
-	FVectorTex *v2 = (FVectorTex*)&v2_;
-	if(v0->pos.y > v1->pos.y) swap(v0, v1);
-	if(v0->pos.y > v2->pos.y) swap(v0, v2);
-	if(v1->pos.y > v2->pos.y) swap(v1, v2);
+	FVectorTex *v0ptr = (FVectorTex*)&v0_;
+	FVectorTex *v1ptr = (FVectorTex*)&v1_;
+	FVectorTex *v2ptr = (FVectorTex*)&v2_;
+	if(v0ptr->pos.y > v1ptr->pos.y) swap(v0ptr, v1ptr);
+	if(v0ptr->pos.y > v2ptr->pos.y) swap(v0ptr, v2ptr);
+	if(v1ptr->pos.y > v2ptr->pos.y) swap(v1ptr, v2ptr);
 
-	if(v1->pos.y == v2->pos.y){
+	// Natural Flat Triangle
+	if(v1ptr->pos.y == v2ptr->pos.y){
 		// ptrfb->PrintLn("Flat Bottom Triangle");
-		if(v1->pos.x > v2->pos.x) swap(v1, v2);
+		if(v1ptr->pos.x > v2ptr->pos.x) swap(v1ptr, v2ptr);
 		DrawFlatBottomTriangle(
-			*v0, *v1, *v2,
+			*v0ptr, *v1ptr, *v2ptr,
 			texture
 		);
 		return;
 	}
 
-	if(v0->pos.y == v1->pos.y){
+	if(v0ptr->pos.y == v1ptr->pos.y){
 		// ptrfb->PrintLn("Flat Top Triangle");
-		if(v0->pos.x > v1->pos.x) swap(v0, v1);
+		if(v0ptr->pos.x > v1ptr->pos.x) swap(v0ptr, v1ptr);
 		DrawFlatTopTriangle(
-			*v0, *v1, *v2,
+			*v0ptr, *v1ptr, *v2ptr,
 			texture
 		);
 		return;
 	}
 
-	f32 m = v1->pos.y - v0->pos.y;
-	f32 n = v2->pos.y - v0->pos.y;
-	FVectorTex vcenter = v0->InterpolateTo(*v2, m / n);
+	// Normal Triangle
+	FVectorTex v0 = *v0ptr;
+	FVectorTex v1 = *v1ptr;
+	FVectorTex v2 = *v2ptr;
+
+	f32 m = v1.pos.y - v0.pos.y;
+	f32 n = v2.pos.y - v0.pos.y;
+	FVectorTex vcenter = v0.InterpolateTo(v2, m / n);
 	
-	if(vcenter.pos.x < v1->pos.x){
+	if(vcenter.pos.x < v1.pos.x){
 		// ptrfb->PrintLn("Longside Left Triangle");
 		DrawFlatBottomTriangle(
-			*v0, vcenter, *v1,
+			v0, vcenter, v1,
 			texture
 		);
 		DrawFlatTopTriangle(
-			vcenter, *v1, *v2,
+			vcenter, v1, v2,
 			texture
 		);
 	}
@@ -209,11 +215,11 @@ void FRasterizer::DrawTriangle(const FVectorTex& v0_, const FVectorTex& v1_, con
 	else{
 		// ptrfb->PrintLn("Longside Right Triangle");
 		DrawFlatBottomTriangle(
-			*v0, *v1, vcenter,
+			v0, v1, vcenter,
 			texture
 		);
 		DrawFlatTopTriangle(
-			*v1, vcenter, *v2,
+			v1, vcenter, v2,
 			texture
 		);
 	}
