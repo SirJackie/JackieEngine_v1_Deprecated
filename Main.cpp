@@ -49,6 +49,8 @@ void Setup (CS_FrameBuffer& fb, CS_Keyboard& kb, CS_Mouse& mouse, i32 deltaTime)
 	texture.LoadFromBMP(CS_Path().join("..").join("Resources").join("Lena.bmp"));
 }
 
+f32 z1 = 10.0f, z2 = 20.0f;
+
 void Update(CS_FrameBuffer& fb, CS_Keyboard& kb, CS_Mouse& mouse, i32 deltaTime) {
 	// // Rotation
 	// if(rotate){
@@ -134,10 +136,29 @@ void Update(CS_FrameBuffer& fb, CS_Keyboard& kb, CS_Mouse& mouse, i32 deltaTime)
 
 
 
-	f32 x1 = 100.0f, z1 = 10.0f, u1 = 0.0f, x2 = 200.0f, z2 = 20.0f, u2 = 1.0f;
+	f32 x1 = 100.0f, u1 = 0.0f, x2 = 200.0f, u2 = 1.0f;
 	rasterizer.DrawPCILine(x1, z1, u1, x2, z2, u2);
 
+	f32 speed = 0.005f;
 
+	if (kb.IsKeyPressed(CSK_W)) {
+		z1 += speed * deltaTime;
+	}
+	if (kb.IsKeyPressed(CSK_S)) {
+		z1 -= speed * deltaTime;
+	}
+	if (kb.IsKeyPressed(CSK_I)) {
+		z2 += speed * deltaTime;
+	}
+	if (kb.IsKeyPressed(CSK_K)) {
+		z2 -= speed * deltaTime;
+	}
+
+	fb.Print("Z1: ");
+	fb.PrintLn(z1);
+
+	fb.Print("Z2: ");
+	fb.PrintLn(z2);
 
 
 
