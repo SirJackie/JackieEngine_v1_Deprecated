@@ -46,6 +46,8 @@ public:
 	void Draw4DPoint(FVector4D& point);
 	void DrawPoint(FObject& obj_);
 	void DrawTriangle(FObject& obj_);
+
+	void DrawPCILine(f32 x1, f32 z1, f32 u1, f32 x2, f32 z2, f32 u2);
 };
 
 #endif

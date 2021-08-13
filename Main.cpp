@@ -103,17 +103,53 @@ void Update(CS_FrameBuffer& fb, CS_Keyboard& kb, CS_Mouse& mouse, i32 deltaTime)
 
 	rasterizer.zb.FillBuffer();
 
-	// Draw Triangle Test
-	rasterizer.DrawTriangle(
-		FVectorTex(FVector4D(  0.0f,   0.0f, 1.0f, 1.0f), FVector3D(0.0f, 0.0f, 1.0f)),
-		FVectorTex(FVector4D(  0.0f, 400.0f, 1.0f, 1.0f), FVector3D(0.0f, 1.0f, 1.0f)),
-		FVectorTex(FVector4D(200.0f, 100.0f, 2.0f, 1.0f), FVector3D(1.0f, 0.0f, 1.0f)),
-		texture
-	);
-	rasterizer.DrawTriangle(
-		FVectorTex(FVector4D(  0.0f, 400.0f, 1.0f, 1.0f), FVector3D(0.0f, 1.0f, 1.0f)),
-		FVectorTex(FVector4D(200.0f, 300.0f, 1.0f, 1.0f), FVector3D(1.0f, 1.0f, 1.0f)),
-		FVectorTex(FVector4D(200.0f, 100.0f, 2.0f, 1.0f), FVector3D(1.0f, 0.0f, 1.0f)),
-		texture
-	);
+	//// Draw Triangle Test
+	//rasterizer.DrawTriangle(
+	//	FVectorTex(FVector4D(  0.0f,   0.0f, 1.0f, 1.0f), FVector3D(0.0f, 0.0f, 1.0f)),
+	//	FVectorTex(FVector4D(  0.0f, 400.0f, 1.0f, 1.0f), FVector3D(0.0f, 1.0f, 1.0f)),
+	//	FVectorTex(FVector4D(200.0f, 100.0f, 2.0f, 1.0f), FVector3D(1.0f, 0.0f, 1.0f)),
+	//	texture
+	//);
+	//rasterizer.DrawTriangle(
+	//	FVectorTex(FVector4D(  0.0f, 400.0f, 1.0f, 1.0f), FVector3D(0.0f, 1.0f, 1.0f)),
+	//	FVectorTex(FVector4D(200.0f, 300.0f, 1.0f, 1.0f), FVector3D(1.0f, 1.0f, 1.0f)),
+	//	FVectorTex(FVector4D(200.0f, 100.0f, 2.0f, 1.0f), FVector3D(1.0f, 0.0f, 1.0f)),
+	//	texture
+	//);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	f32 x1 = 100.0f, z1 = 10.0f, u1 = 0.0f, x2 = 200.0f, z2 = 20.0f, u2 = 1.0f;
+	rasterizer.DrawPCILine(x1, z1, u1, x2, z2, u2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

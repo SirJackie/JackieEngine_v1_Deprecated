@@ -334,3 +334,30 @@ void FRasterizer::DrawTriangle(FObject& obj_){
 		}
 	}
 }
+
+void FRasterizer::DrawPCILine(f32 x1, f32 z1, f32 u1, f32 x2, f32 z2, f32 u2)
+{
+	f32 dx = x2 - x1;
+	f32 du = u2 / z2 - u1 / z1;
+	f32 dz = 1 / z2 - 1 / z1;
+
+	f32 ustep = du / dx;
+	f32 zstep = dz / dx;
+
+	i32 xnow = ceil(x1 - 0.5f);
+	f32 unow = u1 + (float(xnow) - x1) * ustep;
+	f32 znow = z1 + (float(xnow) - x1) * zstep;
+
+	for (; xnow < ceil(x2 - 0.5f); xnow++) {
+
+		f32 realu = unow * znow;
+		f32 realz = 1.0f / znow;
+
+		f32 color = 255.0f * realu;
+
+		CS_PutPixel(*ptrfb, xnow, 100, color, 0, 255 - color);
+
+		unow += ustep;
+		znow += zstep;
+	}
+}
