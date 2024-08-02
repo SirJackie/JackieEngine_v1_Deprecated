@@ -1,4 +1,4 @@
-# JackieEngine_v0.2_Deprecated
+# JackieEngine_v1_Deprecated
 
 这是一个被废弃的仓库，是老版本的JackieEngine。新的仓库请跳转到：
 
